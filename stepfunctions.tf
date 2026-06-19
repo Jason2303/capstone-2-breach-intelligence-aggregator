@@ -49,6 +49,15 @@ resource "aws_iam_policy" "lambda_invoke_policy" {
         Sid      = "InvokeLambda4"
         Resource = aws_lambda_function.lambda_4.arn
       },
+      {
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect = "Allow"
+        Sid = "SendLogsToCloudWatch"
+        Resource = "${aws_cloudwatch_log_group.sfn_log_group.arn}:*"
+      }
     ]
   })
 }
@@ -66,6 +75,12 @@ resource "aws_sfn_state_machine" "sfn_step_machine" {
   role_arn = aws_iam_role.step_function_role.arn
   tracing_configuration {
     enabled = true
+  }
+
+  logging_configuration {
+    log_destination        = "${aws_cloudwatch_log_group.sfn_log_group.arn}:*"
+    include_execution_data = true
+    level                  = "ALL"
   }
 
   definition = jsonencode({

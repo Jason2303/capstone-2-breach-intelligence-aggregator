@@ -85,6 +85,11 @@ resource "aws_cloudwatch_log_group" "http_api_logs" {
   retention_in_days = 30
 }
 
+resource "aws_cloudwatch_log_group" "sfn_log_group" {
+  name              = "/aws/vendedlogs/states/my-state-machine" 
+  retention_in_days = 30
+}
+
 #IAM role and policy attachment for CloudTrail
 resource "aws_iam_role_policy_attachment" "cloudtrail_attach" {
   role       = aws_iam_role.cloudtrail.name

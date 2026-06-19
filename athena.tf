@@ -36,7 +36,7 @@ resource "aws_glue_data_catalog_encryption_settings" "glue_encryption" {
       return_connection_password_encrypted = false
     }
 
-    # This block activates the KMS encryption for your metadata/databases
+    # Activates the KMS encryption 
     encryption_at_rest {
       catalog_encryption_mode = "SSE-KMS"
       sse_aws_kms_key_id      = aws_kms_key.main_kms_key.arn

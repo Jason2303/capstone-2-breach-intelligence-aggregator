@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  description: Simple API for Have I Been Pwned
+  version: 1.0.0
+  title: Have I Been Pwned API
+paths:
+  /scan:
+    post:
+      summary: Gives the email and DNS to I Have Been Pwned API
+      parameters:
+        - in: body
+          required: true
+          schema:
+            properties:
+              email:
+                type: string
+                format: email
+              domain:
+                type: string
+      responses:
+        202:
+          description: Accepted for processing
+          schema:
+            properties:
+              scan_id:
+                type: string
+              message:
+                type: string
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+        429:
+          description: Too Many Requests
+        500:
+          description: Internal Server Error
+  # GET /scan/{scan_id} is defined for future implementation.
+  # Currently results are delivered via SNS email notification to the user.
+  # A HIBP API key is required to use this API. Purchase at https://haveibeenpwned.com/API/Key
+  /scan/{scan_id}:
+    get:
+      parameters:
+        - in: path
+          name: scan_id
+          required: true
+          type: string
+      summary: Gets details back from I Have been Pwned API
+      responses:
+        200:
+          description: Completed
+          schema:
+            properties:
+              scan_id:
+                type: string
+              status:
+                type: string
+              results:
+                type: object
+              message:
+                type: string
+        404:
+          description: Scan ID was not found
+        500:
+          description: Internal Server Error

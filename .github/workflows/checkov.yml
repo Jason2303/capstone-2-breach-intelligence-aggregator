@@ -1,0 +1,26 @@
+name: Checkov Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    name: Checkov Terraform Security Scan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: true
+          skip_check: CKV_AWS_117,CKV_AWS_272,CKV_AWS_144,CKV2_AWS_61,CKV2_AWS_62,CKV_AWS_115,CKV_AWS_338,CKV2_AWS_29,CKV_AWS_158,CKV_AWS_50

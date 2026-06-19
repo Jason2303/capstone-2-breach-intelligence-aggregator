@@ -1,7 +1,6 @@
 variable "security_email" {
   type = string
   description = "Email address for Security Admin"
-  default = "onaefe6@gmail.com"
   sensitive = true
 }
 

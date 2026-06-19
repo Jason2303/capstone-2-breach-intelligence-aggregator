@@ -90,13 +90,13 @@ resource "aws_lambda_function" "lambda_1" {
   role          = aws_iam_role.lambda_1.arn
   handler       = "lambda_1.trigger_lambda"
   code_sha256   = data.archive_file.lambda_1.output_base64sha256
-  kms_key_arn = aws_kms_key.main_kms_key.arn
-  runtime = "python3.13"
+  kms_key_arn   = aws_kms_key.main_kms_key.arn
+  runtime       = "python3.13"
 
   environment {
     variables = {
-      ENVIRONMENT = "Production"
-      LOG_LEVEL   = "info"
+      ENVIRONMENT       = "Production"
+      LOG_LEVEL         = "info"
       STATE_MACHINE_ARN = aws_sfn_state_machine.sfn_step_machine.arn
     }
   }
@@ -108,7 +108,7 @@ resource "aws_lambda_function" "lambda_1" {
   }
 
   tags = {
-    Name = "Trigger Lambda"
+    Name        = "Trigger Lambda"
     Environment = "Production"
   }
 }
@@ -197,16 +197,16 @@ resource "aws_lambda_function" "lambda_2" {
   role          = aws_iam_role.lambda_2.arn
   handler       = "lambda_2.HIBPQuery_lambda"
   code_sha256   = data.archive_file.lambda_2.output_base64sha256
-  kms_key_arn = aws_kms_key.main_kms_key.arn
-  runtime = "python3.13"
-  timeout = 30
+  kms_key_arn   = aws_kms_key.main_kms_key.arn
+  runtime       = "python3.13"
+  timeout       = 30
 
   tracing_config { mode = "Active" }
 
   environment {
     variables = {
-      ENVIRONMENT = "Production"
-      LOG_LEVEL   = "info"
+      ENVIRONMENT         = "Production"
+      LOG_LEVEL           = "info"
       SECRETS_MANAGER_ARN = aws_secretsmanager_secret.secret_store.arn
     }
   }
@@ -216,7 +216,7 @@ resource "aws_lambda_function" "lambda_2" {
   }
 
   tags = {
-    Name = "HIBP Query Lambda"
+    Name        = "HIBP Query Lambda"
     Environment = "Production"
   }
 }
@@ -311,17 +311,17 @@ resource "aws_lambda_function" "lambda_3" {
   role          = aws_iam_role.lambda_3.arn
   handler       = "lambda_3.data_enrichment"
   code_sha256   = data.archive_file.lambda_3.output_base64sha256
-  kms_key_arn = aws_kms_key.main_kms_key.arn
-  runtime = "python3.13"
-  timeout = 30
-  
+  kms_key_arn   = aws_kms_key.main_kms_key.arn
+  runtime       = "python3.13"
+  timeout       = 30
+
   tracing_config { mode = "Active" }
 
   environment {
     variables = {
       ENVIRONMENT = "Production"
       LOG_LEVEL   = "info"
-      BUCKET = aws_s3_bucket.data_report_bucket.bucket
+      BUCKET      = aws_s3_bucket.data_report_bucket.bucket
     }
   }
 
@@ -330,7 +330,7 @@ resource "aws_lambda_function" "lambda_3" {
   }
 
   tags = {
-    Name = "Data Enrichment Lambda"
+    Name        = "Data Enrichment Lambda"
     Environment = "Production"
   }
 }
@@ -441,18 +441,18 @@ resource "aws_lambda_function" "lambda_4" {
   role          = aws_iam_role.lambda_4.arn
   handler       = "lambda_4.reports_lambda"
   code_sha256   = data.archive_file.lambda_4.output_base64sha256
-  kms_key_arn = aws_kms_key.main_kms_key.arn
-  runtime = "python3.13"
-  timeout = 30
+  kms_key_arn   = aws_kms_key.main_kms_key.arn
+  runtime       = "python3.13"
+  timeout       = 30
   tracing_config { mode = "Active" }
 
   environment {
     variables = {
-      ENVIRONMENT = "Production"
-      LOG_LEVEL   = "info"
-      SNS_USER_ARN      = aws_sns_topic.sns_user.arn
-      SNS_ADMIN_ARN     = aws_sns_topic.security_admin.arn
-      S3_BUCKET_NAME    = aws_s3_bucket.data_report_bucket.bucket
+      ENVIRONMENT    = "Production"
+      LOG_LEVEL      = "info"
+      SNS_USER_ARN   = aws_sns_topic.sns_user.arn
+      SNS_ADMIN_ARN  = aws_sns_topic.security_admin.arn
+      S3_BUCKET_NAME = aws_s3_bucket.data_report_bucket.bucket
     }
   }
 
@@ -461,9 +461,9 @@ resource "aws_lambda_function" "lambda_4" {
   }
 
   tags = {
-    Name = "Report Generator Lambda"
+    Name        = "Report Generator Lambda"
     Environment = "Production"
-    
+
   }
 }
 

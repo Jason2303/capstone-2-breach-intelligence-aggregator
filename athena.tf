@@ -52,7 +52,7 @@ resource "aws_glue_catalog_table" "glue_table" {
   table_type = "EXTERNAL_TABLE"
 
   parameters = {
-    EXTERNAL              = "TRUE"
+    EXTERNAL = "TRUE"
   }
 
   storage_descriptor {
@@ -80,58 +80,58 @@ resource "aws_glue_catalog_table" "glue_table" {
     }
 
     columns {
-      name    = "domain"
-      type    = "string"
+      name = "domain"
+      type = "string"
     }
 
     columns {
-      name    = "breach_date"
-      type    = "string"
+      name = "breach_date"
+      type = "string"
     }
 
     columns {
-      name    = "added_date"
-      type    = "string"
+      name = "added_date"
+      type = "string"
     }
 
     columns {
-      name    = "pwn_count"
-      type    = "bigint"
+      name = "pwn_count"
+      type = "bigint"
     }
 
     columns {
-      name    = "description"
-      type    = "string"
+      name = "description"
+      type = "string"
     }
 
     columns {
-      name    = "data_classes"
-      type    = "string"
+      name = "data_classes"
+      type = "string"
     }
 
     columns {
-      name    = "is_verified"
-      type    = "boolean"
+      name = "is_verified"
+      type = "boolean"
     }
 
     columns {
-      name    = "is_sensitive"
-      type    = "boolean"
+      name = "is_sensitive"
+      type = "boolean"
     }
 
     columns {
-      name    = "is_retired"
-      type    = "boolean"
+      name = "is_retired"
+      type = "boolean"
     }
 
     columns {
-      name    = "email"
-      type    = "string"
+      name = "email"
+      type = "string"
     }
 
     columns {
-      name    = "scan_id"
-      type    = "string"
+      name = "scan_id"
+      type = "string"
     }
   }
 }

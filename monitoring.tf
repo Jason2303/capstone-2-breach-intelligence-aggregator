@@ -6,15 +6,15 @@ resource "aws_cloudtrail" "cloudtrail_trail" {
   s3_bucket_name                = aws_s3_bucket.cloudtrail_bucket.id
   s3_key_prefix                 = "prefix"
   include_global_service_events = true
-  is_multi_region_trail = true
-  enable_log_file_validation = true
-  kms_key_id = aws_kms_key.main_kms_key.arn
-  sns_topic_name = aws_sns_topic.security_admin.name
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_loggroup.arn}:*"
-  cloud_watch_logs_role_arn = aws_iam_role.cloudtrail.arn
+  is_multi_region_trail         = true
+  enable_log_file_validation    = true
+  kms_key_id                    = aws_kms_key.main_kms_key.arn
+  sns_topic_name                = aws_sns_topic.security_admin.name
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.cloudtrail_loggroup.arn}:*"
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail.arn
 
   tags = {
-    Name = "CloudTrail"
+    Name        = "CloudTrail"
     Environment = "Production"
   }
 }
@@ -26,7 +26,7 @@ resource "aws_cloudwatch_log_group" "cloudtrail_loggroup" {
   retention_in_days = 365
 
   tags = {
-    Name = "CloudWatch"
+    Name        = "CloudWatch"
     Environment = "Production"
   }
 }

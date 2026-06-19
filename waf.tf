@@ -12,13 +12,13 @@ resource "aws_wafv2_web_acl" "waf" {
     name     = "IPRateLimitRule"
     priority = 1
     action {
-        block {}
+      block {}
     }
 
     statement {
       rate_based_statement {
-        limit = 300
-        aggregate_key_type = "IP"
+        limit                 = 300
+        aggregate_key_type    = "IP"
         evaluation_window_sec = 300
       }
     }
@@ -34,25 +34,25 @@ resource "aws_wafv2_web_acl" "waf" {
     name     = "HeaderRateLimitRule"
     priority = 2
     action {
-        block {}
+      block {}
     }
 
     statement {
       rate_based_statement {
-        limit = 300
-        aggregate_key_type = "CUSTOM_KEYS"
+        limit                 = 300
+        aggregate_key_type    = "CUSTOM_KEYS"
         evaluation_window_sec = 300
 
         custom_key {
           header {
-            name = "x-api-key" 
-        
-        
+            name = "x-api-key"
+
+
             text_transformation {
               priority = 3
-              type     = "NONE" 
+              type     = "NONE"
             }
-          }  
+          }
         }
       }
     }
@@ -65,7 +65,7 @@ resource "aws_wafv2_web_acl" "waf" {
   }
 
   tags = {
-    Name = "WAF"
+    Name        = "WAF"
     Environment = "Production"
   }
 
@@ -97,7 +97,7 @@ resource "aws_cloudwatch_log_group" "waf_loggroup" {
   retention_in_days = 365
 
   tags = {
-    Name = "WAF"
+    Name        = "WAF"
     Environment = "Production"
   }
 }
@@ -113,11 +113,11 @@ resource "aws_cloudwatch_metric_alarm" "waf_alarm" {
   threshold                 = 300
   alarm_description         = "Threshold for WAF requests have been reached"
   insufficient_data_actions = []
-  alarm_actions = [aws_sns_topic.security_admin.arn]
+  alarm_actions             = [aws_sns_topic.security_admin.arn]
 
   dimensions = {
     WebACL = aws_wafv2_web_acl.waf.name
     Region = data.aws_region.current.region
-    Rule = "ALL"
+    Rule   = "ALL"
   }
 }

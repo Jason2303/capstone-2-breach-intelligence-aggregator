@@ -4,7 +4,7 @@ resource "aws_apigatewayv2_api" "apigw" {
   protocol_type = "HTTP"
 
   tags = {
-    Name = "API Gateway"
+    Name        = "API Gateway"
     Environment = "Production"
   }
 }
@@ -14,10 +14,10 @@ resource "aws_apigatewayv2_integration" "apigw" {
   api_id           = aws_apigatewayv2_api.apigw.id
   integration_type = "AWS_PROXY"
 
-  connection_type           = "INTERNET"
-  description               = "Lambda example"
-  integration_method        = "POST"
-  integration_uri           = aws_lambda_function.lambda_1.invoke_arn
+  connection_type    = "INTERNET"
+  description        = "Lambda example"
+  integration_method = "POST"
+  integration_uri    = aws_lambda_function.lambda_1.invoke_arn
 }
 
 # API Gateway Routes
@@ -36,8 +36,8 @@ resource "aws_apigatewayv2_route" "apigwroute2" {
 
 # API Gateway Stage
 resource "aws_apigatewayv2_stage" "apigw" {
-  api_id = aws_apigatewayv2_api.apigw.id
-  name   = "$default"
+  api_id      = aws_apigatewayv2_api.apigw.id
+  name        = "$default"
   auto_deploy = true
 }
 

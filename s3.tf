@@ -1,14 +1,14 @@
 #DATA REPORT BUCKET
 # Configure the Data Report bucket
 resource "aws_s3_bucket" "data_report_bucket" {
-    bucket = "datareports2413"
-    # object_lock_enabled = true
-    force_destroy = true
+  bucket = "datareports2413"
+  # object_lock_enabled = true
+  force_destroy = true
 
-    tags = {
-      Name = "Reports"
-      Environment = "Production"
-    }
+  tags = {
+    Name        = "Reports"
+    Environment = "Production"
+  }
 }
 
 # Block Public Access to the Data Report Bucket
@@ -62,7 +62,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_report_lifecycle" {
 
     status = "Enabled"
     transition {
-      days = 31
+      days          = 31
       storage_class = "GLACIER"
     }
   }
@@ -73,14 +73,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_report_lifecycle" {
 #CLOUDTRAIL BUCKET
 # Configure the CloudTrail bucket
 resource "aws_s3_bucket" "cloudtrail_bucket" {
-    bucket = "cloudtraillogs2413"
-    # object_lock_enabled = true
-    force_destroy = true
+  bucket = "cloudtraillogs2413"
+  # object_lock_enabled = true
+  force_destroy = true
 
-    tags = {
-      Name = "CloudTrail"
-      Environment = "Production"
-    }
+  tags = {
+    Name        = "CloudTrail"
+    Environment = "Production"
+  }
 }
 
 # Block Public Access to the CloudTrail Bucket
@@ -134,7 +134,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle" {
 
     status = "Enabled"
     transition {
-      days = 31
+      days          = 31
       storage_class = "GLACIER"
     }
   }
@@ -355,7 +355,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "access_logs_bucket_lifecycle" 
 
     status = "Enabled"
     transition {
-      days = 31
+      days          = 31
       storage_class = "GLACIER"
     }
   }
@@ -364,14 +364,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "access_logs_bucket_lifecycle" 
 
 # Configure the Athena bucket
 resource "aws_s3_bucket" "athena_results_bucket" {
-    bucket = "athenabucket2413"
-    # object_lock_enabled = true
-    force_destroy = true
+  bucket = "athenabucket2413"
+  # object_lock_enabled = true
+  force_destroy = true
 
-    tags = {
-      Name = "Athena Bucket"
-      Environment = "Production"
-    }
+  tags = {
+    Name        = "Athena Bucket"
+    Environment = "Production"
+  }
 }
 
 # Block Public Access to the Athena Bucket
@@ -425,7 +425,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "athena_lifecycle" {
 
     status = "Enabled"
     transition {
-      days = 31
+      days          = 31
       storage_class = "GLACIER"
     }
   }

@@ -2,7 +2,7 @@
 resource "aws_guardduty_detector" "guardduty" {
   enable = true
   tags = {
-    Name = "GuardDuty"
+    Name        = "GuardDuty"
     Environment = "Production"
   }
 }
@@ -34,7 +34,7 @@ resource "aws_securityhub_standards_subscription" "securityhub" {
 resource "aws_config_configuration_recorder" "config" {
   name     = "aws_config"
   role_arn = aws_iam_role.config.arn
-  
+
 
   recording_group {
     all_supported = true

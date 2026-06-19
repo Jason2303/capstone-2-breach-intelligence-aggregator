@@ -17,7 +17,7 @@ resource "aws_iam_role" "step_function_role" {
   })
 
   tags = {
-    Name = "Step Function"
+    Name        = "Step Function"
     Environment = "Production"
   }
 }
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "lambda_invoke_policy" {
 
 # Step Function Role attachment
 resource "aws_iam_role_policy_attachment" "attach_invoke" {
-  role = aws_iam_role.step_function_role.name
+  role       = aws_iam_role.step_function_role.name
   policy_arn = aws_iam_policy.lambda_invoke_policy.arn
 }
 
@@ -66,37 +66,37 @@ resource "aws_sfn_state_machine" "sfn_step_machine" {
   role_arn = aws_iam_role.step_function_role.arn
 
   definition = jsonencode({
-  Comment = "Breach Intelligence scan workflow"
-  QueryLanguage = "JSONPath"
-  StartAt = "HIBQQuery"
-  States = {
-    HIBQQuery = {
-      Type = "Task"
-      Resource = "arn:aws:states:::lambda:invoke"
-      Parameters = {
-        FunctionName = aws_lambda_function.lambda_2.arn
-        "Payload.$" = "$"
+    Comment       = "Breach Intelligence scan workflow"
+    QueryLanguage = "JSONPath"
+    StartAt       = "HIBQQuery"
+    States = {
+      HIBQQuery = {
+        Type     = "Task"
+        Resource = "arn:aws:states:::lambda:invoke"
+        Parameters = {
+          FunctionName = aws_lambda_function.lambda_2.arn
+          "Payload.$"  = "$"
+        }
+        Next = "DataEnrichment"
       }
-      Next = "DataEnrichment"
-    }
-    DataEnrichment = {
-      Type = "Task"
-      Resource = "arn:aws:states:::lambda:invoke"
-      Parameters = {
-        FunctionName = aws_lambda_function.lambda_3.arn
-        "Payload.$" = "$"
+      DataEnrichment = {
+        Type     = "Task"
+        Resource = "arn:aws:states:::lambda:invoke"
+        Parameters = {
+          FunctionName = aws_lambda_function.lambda_3.arn
+          "Payload.$"  = "$"
+        }
+        Next = "ReportGenerator"
       }
-      Next = "ReportGenerator"
-    }
-    ReportGenerator = {
-      Type = "Task"
-      Resource = "arn:aws:states:::lambda:invoke"
-      Parameters = {
-        FunctionName = aws_lambda_function.lambda_4.arn
-        "Payload.$" = "$"
+      ReportGenerator = {
+        Type     = "Task"
+        Resource = "arn:aws:states:::lambda:invoke"
+        Parameters = {
+          FunctionName = aws_lambda_function.lambda_4.arn
+          "Payload.$"  = "$"
+        }
+        End = true
       }
-      End = true
     }
-  }   
-})
+  })
 }

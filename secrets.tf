@@ -1,7 +1,7 @@
 # Secret Manager for API
 resource "aws_secretsmanager_secret" "secret_store" {
-  name = "breach_intelligence_secret"
-  kms_key_id = aws_kms_key.main_kms_key.id
+  name                    = "breach_intelligence_secret"
+  kms_key_id              = aws_kms_key.main_kms_key.id
   recovery_window_in_days = 0
 }
 

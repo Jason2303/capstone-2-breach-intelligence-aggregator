@@ -22,7 +22,7 @@ resource "aws_sns_topic_policy" "sns_policy_security_admin" {
 data "aws_iam_policy_document" "security_admin_topic_policy" {
   policy_id = "SNSTopicforSecurityAdmin"
 
-#Statement for CloudTrail
+  #Statement for CloudTrail
   statement {
     actions = [
       "SNS:Publish",
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "security_admin_topic_policy" {
 
     sid = "ToAllowGuardDuty"
   }
-  
+
   #Statement for CloudWatch Alarms
   statement {
     actions = [

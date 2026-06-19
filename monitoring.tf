@@ -79,6 +79,12 @@ resource "aws_iam_policy" "cloudtrail_policy" {
   })
 }
 
+# Log Group for API Gateway
+resource "aws_cloudwatch_log_group" "http_api_logs" {
+  name              = "/aws/v2-api/my-http-api"
+  retention_in_days = 30
+}
+
 #IAM role and policy attachment for CloudTrail
 resource "aws_iam_role_policy_attachment" "cloudtrail_attach" {
   role       = aws_iam_role.cloudtrail.name

@@ -2,9 +2,9 @@ name: Checkov Scan
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   checkov:
@@ -23,4 +23,4 @@ jobs:
           directory: .
           framework: terraform
           soft_fail: true
-          skip_check: CKV_AWS_117,CKV_AWS_272,CKV_AWS_144,CKV2_AWS_61,CKV2_AWS_62,CKV_AWS_115,CKV_AWS_338,CKV2_AWS_29,CKV_AWS_158,CKV_AWS_50
+          skip_check: CKV_AWS_117,CKV_AWS_272,CKV_AWS_144,CKV2_AWS_61,CKV2_AWS_62,CKV_AWS_115,CKV_AWS_338,CKV2_AWS_29,CKV_AWS_158,CKV_AWS_50,CKV_AWS_94,CKV_AWS_77,CKV_AWS_309

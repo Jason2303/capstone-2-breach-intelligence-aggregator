@@ -64,6 +64,9 @@ resource "aws_iam_role_policy_attachment" "attach_invoke" {
 resource "aws_sfn_state_machine" "sfn_step_machine" {
   name     = "my-state-machine"
   role_arn = aws_iam_role.step_function_role.arn
+  tracing_configuration {
+    enabled = true
+  }
 
   definition = jsonencode({
     Comment       = "Breach Intelligence scan workflow"

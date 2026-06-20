@@ -263,6 +263,14 @@ curl -X POST https://<api-gateway-url>/scan ^
 
 ---
 
+---
+
+## Trivy Findings
+
+Trivy IaC scan reports — before and after remediation — are located in the docs/ folder.
+
+---
+
 ## Certifications
 
 `AWS Security Specialty (SCS-C03)` · `AWS Solutions Architect Associate (SAA-C03)` · `CompTIA Security+` · `Certified Associate in Project Management (CAPM)`

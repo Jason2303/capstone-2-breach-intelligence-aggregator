@@ -5,13 +5,14 @@ def data_enrichment(event, context):
     s3 = boto3.client('s3')
 
     # Gets email breaches records from Lambda 2
-    email_breaches = event.get('Payload', event).get('email_breaches', [])
+    email_breaches = event.get('email_breaches', [])
 
     # Gets domain breaches records from Lambda 2
-    domain_breaches = event.get('Payload', event).get('domain_breaches', [])
-    scan_id = event.get('Payload', event).get('scan_id')
-    email = event.get('Payload', event).get('email')
-    domain = event.get('Payload', event).get('domain')
+    domain_breaches = event.get('domain_breaches', [])
+    
+    scan_id = event.get('scan_id')
+    email = event.get('email')
+    domain = event.get('domain')
     enriched_records = []
 
     # Loops through the breaches, maps the keys to the values. Adds the dictionary to a list

@@ -51,6 +51,21 @@ resource "aws_iam_policy" "lambda_invoke_policy" {
       },
       {
         Action = [
+          "logs:CreateLogDelivery",
+          "logs:GetLogDelivery",
+          "logs:UpdateLogDelivery",
+          "logs:DeleteLogDelivery",
+          "logs:ListLogDeliveries",
+          "logs:PutResourcePolicy",
+          "logs:DescribeResourcePolicies",
+          "logs:DescribeLogGroups"
+        ]
+        Effect   = "Allow"
+        Sid      = "SFNLogDeliveryManagement"
+        Resource = "*"
+      },
+      {
+        Action = [
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
@@ -86,14 +101,20 @@ resource "aws_sfn_state_machine" "sfn_step_machine" {
   definition = jsonencode({
     Comment       = "Breach Intelligence scan workflow"
     QueryLanguage = "JSONPath"
-    StartAt       = "HIBQQuery"
+    StartAt       = "HIBPQuery"
     States = {
-      HIBQQuery = {
+      HIBPQuery = {
         Type     = "Task"
         Resource = "arn:aws:states:::lambda:invoke"
         Parameters = {
           FunctionName = aws_lambda_function.lambda_2.arn
           "Payload.$"  = "$"
+        }
+        ResultSelector = {
+          "email.$"           = "$.Payload.email"
+          "scan_id.$"         = "$.Payload.scan_id"
+          "email_breaches.$"  = "$.Payload.email_breaches"
+          "domain_breaches.$" = "$.Payload.domain_breaches"
         }
         Next = "DataEnrichment"
       }
@@ -103,6 +124,9 @@ resource "aws_sfn_state_machine" "sfn_step_machine" {
         Parameters = {
           FunctionName = aws_lambda_function.lambda_3.arn
           "Payload.$"  = "$"
+        }
+        ResultSelector = {
+          "records.$" = "$.Payload"
         }
         Next = "ReportGenerator"
       }

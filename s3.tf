@@ -72,6 +72,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "data_report_lifecycle" {
       days_after_initiation = 7
     }
   }
+
+  depends_on = [aws_s3_bucket.data_report_bucket]
 }
 
 
@@ -150,6 +152,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_bucket_lifecycle" {
       days_after_initiation = 7
     }
   }
+
+  depends_on = [aws_s3_bucket.cloudtrail_bucket]
 
 }
 
@@ -332,6 +336,8 @@ resource "aws_s3_bucket_versioning" "access_logs_bucket_versioned" {
   versioning_configuration {
     status = "Enabled"
   }
+
+
 }
 
 # Access Logs Bucket Encryption
@@ -377,6 +383,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "access_logs_bucket_lifecycle" 
       days_after_initiation = 7
     }
   }
+
+  depends_on = [aws_s3_bucket.access_logs]
 }
 
 
@@ -453,4 +461,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "athena_lifecycle" {
       days_after_initiation = 7
     }
   }
+
+  depends_on = [aws_s3_bucket.athena_results_bucket]
 }

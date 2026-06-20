@@ -7,7 +7,7 @@ def reports_lambda(event, context):
     sns = boto3.client('sns')
 
     # Access records from Lambda 3
-    records = event if isinstance(event, list) else event.get('Payload', [event])
+    records = event if isinstance(event, list) else event.get('records', [])
     
     # Access the scan_id from Lambda 3
     scan_id = records[0].get('scan_id') if records else None

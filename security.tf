@@ -15,20 +15,20 @@ resource "aws_guardduty_detector_feature" "s3_protection" {
 }
 
 # Security Hub Resourcce
-resource "aws_securityhub_account" "securityhub" {
-  lifecycle {
-    ignore_changes = all
-  }
-}
+# resource "aws_securityhub_account" "securityhub" {
+#   lifecycle {
+#     ignore_changes = all
+#   }
+# }
 
-resource "aws_securityhub_finding_aggregator" "securityhub" {
-  linking_mode = "ALL_REGIONS"
-}
+# resource "aws_securityhub_finding_aggregator" "securityhub" {
+#   linking_mode = "ALL_REGIONS"
+# }
 
-resource "aws_securityhub_standards_subscription" "securityhub" {
-  standards_arn = "arn:${data.aws_partition.current.partition}:securityhub:${data.aws_region.current.region}::standards/aws-foundational-security-best-practices/v/1.0.0"
-  depends_on    = [aws_securityhub_account.securityhub]
-}
+# resource "aws_securityhub_standards_subscription" "securityhub" {
+#   standards_arn = "arn:${data.aws_partition.current.partition}:securityhub:${data.aws_region.current.region}::standards/aws-foundational-security-best-practices/v/1.0.0"
+#   depends_on    = [aws_securityhub_account.securityhub]
+# }
 
 # Config Resource
 resource "aws_config_configuration_recorder" "config" {

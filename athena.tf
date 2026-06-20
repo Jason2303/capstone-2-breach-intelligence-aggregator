@@ -24,7 +24,7 @@ resource "aws_athena_database" "athena_database" {
 
   encryption_configuration {
     encryption_option = "SSE_KMS"
-    kms_key = aws_kms_key.main_kms_key.arn
+    kms_key           = aws_kms_key.main_kms_key.arn
   }
 }
 

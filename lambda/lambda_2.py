@@ -2,6 +2,9 @@ import boto3, botocore, os, urllib3, json
 
 # Lambda function querying https://haveibeenpwned.com/
 def HIBPQuery_lambda(event, context): 
+    
+
+
     secrets = boto3.client('secretsmanager')
     
     # Get secret from Secret Manager
@@ -16,6 +19,7 @@ def HIBPQuery_lambda(event, context):
     # Get email and domain input
     email = event.get('email')
     domain = event.get('domain')
+
 
     # API call to https://haveibeenpwned.com/
     http = urllib3.PoolManager()

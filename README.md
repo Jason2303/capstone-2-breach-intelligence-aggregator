@@ -22,6 +22,15 @@ This project is directly relevant to GDPR Article 33, which requires organizatio
 
 ---
 
+---
+
+## AWS Well-Architected Framework Alignment
+
+This project aligns with the six AWS Well-Architected pillars. **Operational Excellence** is supported through CloudTrail, CloudWatch, X-Ray, and CloudWatch Alarms for monitoring and observability. **Security** is implemented using IAM least privilege, KMS encryption, WAF, GuardDuty, Macie, Security Hub, Secrets Manager, and Checkov. **Reliability** is enhanced through Step Functions retries, DLQs, and S3 versioning. **Performance Efficiency** is achieved with a scalable serverless architecture and pay-per-request services. **Cost Optimization** is supported through HTTP APIs, serverless services, a shared KMS key, and the avoidance of NAT Gateways. **Sustainability** is improved through serverless compute that automatically scales to zero when idle.
+
+
+---
+
 ## How It Works
 
 The User passes in the paid API Key from HaveIBeenPwned which is stored within Secrets Manager and an email where the processed breach data reports are sent. Security admin email is also requested as well. CloudTrail, GuardDuty findings, Data Report and a CloudWatch alarm is configured to send alerts to the Security Admins email using the SNS Admin Topic.

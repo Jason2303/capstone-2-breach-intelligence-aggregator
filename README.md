@@ -122,27 +122,27 @@ The Step Function invokes the last Lambda function (Report Generator). Its job i
 
 ## Design Decisions
 
-**No VPC** — Lambda communicates with S3 and other services via AWS-managed endpoints controlled by IAM. A VPC would add NAT Gateway cost and network complexity without improving the security posture for this project. Also, Lambda is short running compute and all services are encrypted.
+- **No VPC** — Lambda communicates with S3 and other services via AWS-managed endpoints controlled by IAM. A VPC would add NAT Gateway cost and network complexity without improving the security posture for this project. Also, Lambda is short running compute and all services are encrypted.
 
-**Single KMS CMK vs per-service keys** — Cheaper and simpler approach to this project. 20+ customer managed keys is complex and unnecessary for the project. 1 Customer Managed Key encrypts all services.
+- **Single KMS CMK vs per-service keys** — Cheaper and simpler approach to this project. 20+ customer managed keys is complex and unnecessary for the project. 1 Customer Managed Key encrypts all services.
 
-**Step Function vs EventBridge** — Step function orchestrates the Lambda functions and can handle complex sequencing of tasks and error handling/retries.
+- **Step Function vs EventBridge** — Step function orchestrates the Lambda functions and can handle complex sequencing of tasks and error handling/retries.
 
-**S3 + Glue + Athena** — Deployed as a data lake pattern for ad-hoc SQL analysis of accumulated breach data across multiple scans. Athena queries the Glue-catalogued S3 data without ETL processing.
+- **S3 + Glue + Athena** — Deployed as a data lake pattern for ad-hoc SQL analysis of accumulated breach data across multiple scans. Athena queries the Glue-catalogued S3 data without ETL processing.
 
-**WAF manual association** — Associating WAF to API Gateway using a HTTP API via Terraform is a known Terraform limitation and requires manual provisioning in the AWS Console. 
+- **WAF manual association** — Associating WAF to API Gateway using a HTTP API via Terraform is a known Terraform limitation and requires manual provisioning in the AWS Console. 
 
-**HTTP API vs REST API** — HTTP API is cheaper and simpler to provision using Terraform. Tradeoff was cost-effective and REST API is overkill for this project
+- **HTTP API vs REST API** — HTTP API is cheaper and simpler to provision using Terraform. Tradeoff was cost-effective and REST API is overkill for this project
 
-**Object Lock commented out** — For easier deployment when tearing down infrastructure using `terraform destroy`. Enable in Production. 
+- **Object Lock commented out** — For easier deployment when tearing down infrastructure using `terraform destroy`. Enable in Production. 
 
-**Presigned URL for report access** — More secure, time-limited access without any IAM requirement for the User and Security Admin
+- **Presigned URL for report access** — More secure, time-limited access without any IAM requirement for the User and Security Admin
 
-**No Secrets Manager Rotation** — The HIBP API key is a static third-party credential. Automatic rotation would invalidate the key without a corresponding update from HaveIBeenPwned. Rotation must be performed manually when a new key is issued.
+- **No Secrets Manager Rotation** — The HIBP API key is a static third-party credential. Automatic rotation would invalidate the key without a corresponding update from HaveIBeenPwned. Rotation must be performed manually when a new key is issued.
 
-**4 Lambdas instead of 1 running the whole pipeline** — Separation of duty and secure. Also improves reliability making sure 1 Lambda function isn't running all tasks.
+- **4 Lambdas instead of 1 running the whole pipeline** — Separation of duty and secure. Also improves reliability making sure 1 Lambda function isn't running all tasks.
 
-**No ACM** — The default API Gateway endpoint already enforces HTTPS via AWS-managed certificates. ACM is only required for custom domains.
+- **No ACM** — The default API Gateway endpoint already enforces HTTPS via AWS-managed certificates. ACM is only required for custom domains.
 
 ---
 

@@ -35,7 +35,7 @@ paths:
         500:
           description: Internal Server Error
   # GET /scan/{scan_id} is defined for future implementation.
-  # Currently results are delivered via SNS email notification to the user.
+  # Currently results are delivered via SNS email notification to the User & Security Admin.
   # A HIBP API key is required to use this API. Purchase at https://haveibeenpwned.com/API/Key
   /scan/{scan_id}:
     get:

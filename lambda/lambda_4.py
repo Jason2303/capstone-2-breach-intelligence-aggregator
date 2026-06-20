@@ -65,7 +65,7 @@ def reports_lambda(event, context):
         Subject="Breach Intelligence Report"
         )
 
-        response_6 = sns.publish(
+        response_7 = sns.publish(
             TopicArn= os.environ.get('SNS_ADMIN_ARN'),
             Message=f"New breach report ready.\nScan ID: {scan_id}\nTarget: {email}\nBreaches found: {len(records)}\n\nAccess full report: {pre_signed_url}",
             Subject="Breach Intelligence Report"

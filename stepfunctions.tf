@@ -54,8 +54,8 @@ resource "aws_iam_policy" "lambda_invoke_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ]
-        Effect = "Allow"
-        Sid = "SendLogsToCloudWatch"
+        Effect   = "Allow"
+        Sid      = "SendLogsToCloudWatch"
         Resource = "${aws_cloudwatch_log_group.sfn_log_group.arn}:*"
       }
     ]

@@ -41,7 +41,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data_report_bucke
   }
 }
 
-#Object Locking for the Data Report Bucket
+# Object Locking for the Data Report Bucket
+# Object lock commented out to allow clean terraform destroy during development
+# Enable in production with GOVERNANCE mode for tamper-evident audit logs
 # resource "aws_s3_bucket_object_lock_configuration" "datareport_object_lock" {
 #   bucket = aws_s3_bucket.data_report_bucket.id
 
@@ -118,6 +120,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_bucket
 }
 
 # Object Locking for the CloudTrail Bucket
+# Object lock commented out to allow clean terraform destroy during development
+# Enable in production with GOVERNANCE mode for tamper-evident audit logs
 # resource "aws_s3_bucket_object_lock_configuration" "cloudtrail_object_lock" {
 #   bucket = aws_s3_bucket.cloudtrail_bucket.id
 
@@ -299,7 +303,7 @@ resource "aws_s3_bucket_logging" "cloudtrail_bucket" {
   }
 }
 
-# Log CloudTrail Bucket
+# Log Athena Bucket
 resource "aws_s3_bucket_logging" "athena_results_bucket" {
   bucket = aws_s3_bucket.athena_results_bucket.id
 
@@ -343,6 +347,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs_bucke
 }
 
 # Object Locking for the Access Logs Bucket
+# Object lock commented out to allow clean terraform destroy during development
+# Enable in production with GOVERNANCE mode for tamper-evident audit logs
 # resource "aws_s3_bucket_object_lock_configuration" "access_logs_object_lock" {
 #   bucket = aws_s3_bucket.access_logs.id
 
@@ -417,6 +423,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "athena_bucket_enc
 }
 
 # Object Locking for the Athena Bucket
+# Object lock commented out to allow clean terraform destroy during development
+# Enable in production with GOVERNANCE mode for tamper-evident audit logs
 # resource "aws_s3_bucket_object_lock_configuration" "athena_object_lock" {
 #   bucket = aws_s3_bucket.athena_results_bucket.id
 

@@ -63,7 +63,7 @@ resource "aws_wafv2_web_acl" "waf" {
       sampled_requests_enabled   = true
     }
   }
-  
+
   rule {
     name     = "AWSManagedRule"
     priority = 4
@@ -85,8 +85,8 @@ resource "aws_wafv2_web_acl" "waf" {
       sampled_requests_enabled   = true
     }
   }
-  
-  
+
+
 
   tags = {
     Name        = "WAF"

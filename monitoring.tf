@@ -82,11 +82,13 @@ resource "aws_iam_policy" "cloudtrail_policy" {
 # Log Group for API Gateway
 resource "aws_cloudwatch_log_group" "http_api_logs" {
   name              = "/aws/v2-api/my-http-api"
+  kms_key_id        = aws_kms_key.main_kms_key.arn
   retention_in_days = 30
 }
 
 resource "aws_cloudwatch_log_group" "sfn_log_group" {
-  name              = "/aws/vendedlogs/states/my-state-machine" 
+  name              = "/aws/vendedlogs/states/my-state-machine"
+  kms_key_id        = aws_kms_key.main_kms_key.arn
   retention_in_days = 30
 }
 

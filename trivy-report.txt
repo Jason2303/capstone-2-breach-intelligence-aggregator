@@ -1,0 +1,36 @@
+
+Report Summary
+
+┌───────────┬───────────┬───────────────────┐
+│  Target   │   Type    │ Misconfigurations │
+├───────────┼───────────┼───────────────────┤
+│ .         │ terraform │         0         │
+├───────────┼───────────┼───────────────────┤
+│ athena.tf │ terraform │         1         │
+└───────────┴───────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+athena.tf (terraform)
+=====================
+Tests: 1 (SUCCESSES: 0, FAILURES: 1)
+Failures: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 1, CRITICAL: 0)
+
+AWS-0006 (HIGH): Database does not have encryption configured.
+════════════════════════════════════════
+Data can be read if the Athena Database is compromised. Athena databases and workspace result sets should be encrypted at rests. These databases and query sets are generally derived from data in S3 buckets and should have the same level of at rest protection.
+
+
+See https://avd.aquasec.com/misconfig/aws-0006
+────────────────────────────────────────
+ athena.tf:21-24
+────────────────────────────────────────
+  21 ┌ resource "aws_athena_database" "athena_database" {
+  22 │   name   = "athenadb"
+  23 │   bucket = aws_s3_bucket.athena_results_bucket.id
+  24 └ }
+────────────────────────────────────────
+
+

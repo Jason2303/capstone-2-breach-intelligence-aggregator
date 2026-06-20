@@ -21,6 +21,11 @@ resource "aws_athena_workgroup" "data_report_athena" {
 resource "aws_athena_database" "athena_database" {
   name   = "athenadb"
   bucket = aws_s3_bucket.athena_results_bucket.id
+
+  encryption_configuration {
+    encryption_option = "SSE_KMS"
+    kms_key = aws_kms_key.main_kms_key.arn
+  }
 }
 
 
